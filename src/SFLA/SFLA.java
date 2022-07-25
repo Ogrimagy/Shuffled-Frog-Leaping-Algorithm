@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package PFE;
+package SFLA;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,32 +25,32 @@ public class SFLA {
 
     // Step 1: Set the size F of population, the number M of memeplex and the number N of iterations.
     public SFLA(HashMap map) {
-//        System.out.println("Step 1: Set the size F of population, the number M of memeplex and the number N of iterations.");
+        System.out.println("Step 1: Set the size F of population, the number M of memeplex and the number N of iterations.");
         this.map = map;
-        memplexe = new HashMap[Cloud.getM()];
-//        System.out.println("F = " + Cloud.getF() + ", M = " + Cloud.getM() + ", N = " + Cloud.getN());
+        memplexe = new HashMap[Main.getM()];
+        System.out.println("F = " + Main.getF() + ", M = " + Main.getM() + ", N = " + Main.getN());
     }
 
     // Step 2: Generate a random population of F solutions and evaluate each solution.
     public void gen_frogs() { // Generates a random frog population from gaussian normal distribution. Sigma and Mu for the gaussian distribution.
-//        System.out.println("\nStep 2: Generate a random population of F solutions and evaluate each solution.");
+        System.out.println("\nStep 2: Generate a random population of F solutions and evaluate each solution.");
         optimize(map);
-//        map.forEach((key, value) -> System.out.println("[Frog_id : " + key + ", Objective Value :" + map.get(key).getTotal() + "]"));
+        map.forEach((key, value) -> System.out.println("[Frog_id : " + key + ", Objective Value :" + map.get(key).getTotal() + "]"));
     }
 
     // Step 3: Sort the population and determine the best solution Xg.
     public void sort_frogs() {
-//        System.out.println("\nStep 3: Sort the population and determine the best solution Xg.");
+        System.out.println("\nStep 3: Sort the population and determine the best solution Xg.");
         map = sortValues(map);
-//        map.forEach((key, value) -> System.out.println("[Frog_id : " + key + ", Objective Value :" + map.get(key).getTotal() + "]"));
+        map.forEach((key, value) -> System.out.println("[Frog_id : " + key + ", Objective Value :" + map.get(key).getTotal() + "]"));
         Xg = map.get(map.keySet().toArray()[0]);
-//        System.out.println("The best solution is Xg : [Frog_id : " + Xg.getId_frog() + ", Objective Value :" + Xg.getTotal() + "]");
+        System.out.println("The best solution is Xg : [Frog_id : " + Xg.getId_frog() + ", Objective Value :" + Xg.getTotal() + "]");
     }
 
     // Step 4: Partition the population into M memeplexes.
     public void part_frogs() {
         // initializing
-        for (int i = 0; i < Cloud.getM(); i++) {
+        for (int i = 0; i < Main.getM(); i++) {
             memplexe[i] = new HashMap<>();
         }
         // Fill the memplexes
@@ -58,25 +58,25 @@ public class SFLA {
         for (Map.Entry<Integer, Frog> set : map.entrySet()) {
             memplexe[i].put(set.getKey(), set.getValue());
             i++;
-            if (i == Cloud.getM()) {
+            if (i == Main.getM()) {
                 i = 0;
             }
         }
         // print the memplexes
-//        System.out.println("\nStep 4: Partition the population into M memeplexes.");
-        for (int k = 0; k < Cloud.getM(); k++) {
+        System.out.println("\nStep 4: Partition the population into M memeplexes.");
+        for (int k = 0; k < Main.getM(); k++) {
             memplexe[k] = sortValues(memplexe[k]);
             for (Map.Entry<Integer, Frog> set : memplexe[k].entrySet()) {
-//                System.out.println("Memplexe[" + k + "] : [Frog_id : " + set.getKey() + ", Objective Value :" + memplexe[k].get(set.getKey()).getTotal() + "]");
+                System.out.println("Memplexe[" + k + "] : [Frog_id : " + set.getKey() + ", Objective Value :" + memplexe[k].get(set.getKey()).getTotal() + "]");
             }
         }
     }
 
     // Step 5: Local search: for each memeplex, repeat for N iterations.
     public void local_search() {
-//        System.out.println("\nStep 5: Local search: for each memeplexe, repeat for N iterations.");
-        for (int i = 0; i < Cloud.getM(); i++) {
-            for (int j = 0; j < Cloud.getN(); j++) {
+        System.out.println("\nStep 5: Local search: for each memeplexe, repeat for N iterations.");
+        for (int i = 0; i < Main.getM(); i++) {
+            for (int j = 0; j < Main.getN(); j++) {
 
                 optimize(memplexe[i]);
                 memplexe[i] = sortValues(memplexe[i]);
@@ -92,9 +92,9 @@ public class SFLA {
                 selectBestFrog_1.put(1, Xn);
                 selectBestFrog_1.put(2, Xw);
                 optimize(selectBestFrog_1);
-                /*System.out.println("Memplexe[" + i + "] = "
+                System.out.println("Memplexe[" + i + "] = "
                         + "{Xw} : [Frog_id : " + Xw.getId_frog() + ", Objective Value :" + Xw.getTotal() + "], "
-                        + "{Xn} : [Frog_id : " + Xn.getId_frog() + ", Objective Value :" + Xn.getTotal()+ "]");*/
+                        + "{Xn} : [Frog_id : " + Xn.getId_frog() + ", Objective Value :" + Xn.getTotal()+ "]");
 
                 // Step 5.3: if (Xw'(Xn) is better than Xw) then replace Xw by Xw'(Xn)
                 if (Xn.getTotal() < Xw.getTotal()) {
@@ -120,35 +120,35 @@ public class SFLA {
 
     // Step 6: Bring together the M memeplexes to build again the population.
     public void collect_memeplexes() {
-//        System.out.println("\nStep 6: Bring together the M memeplexes to build again the population.");
+        System.out.println("\nStep 6: Bring together the M memeplexes to build again the population.");
         map.clear();
-        for (int i = 0; i < Cloud.getM(); i++) {
+        for (int i = 0; i < Main.getM(); i++) {
             map.putAll(memplexe[i]);
         }
         optimize(map);
-//        map.forEach((key, value) -> System.out.println("[Frog_id : " + key + ", Objective Value :" + map.get(key).getTotal() + "]"));
+        map.forEach((key, value) -> System.out.println("[Frog_id : " + key + ", Objective Value :" + map.get(key).getTotal() + "]"));
     }
 
     // Step 7: Go to step 3 if the stop criterion is not reached.
     public void repeat() {
-//        System.out.println("\nStep 7: Go to step 3 if the stop criterion is not reached.");
+        System.out.println("\nStep 7: Go to step 3 if the stop criterion is not reached.");
     }
 
     // Step 8 : Determine the optimal solution
     public void opt_sol() {
-//        System.out.println("\nStep 8 : Determine the best solution");
+        System.out.println("\nStep 8 : Determine the best solution");
         map = sortValues(map);
         Xf = map.get(map.keySet().toArray()[0]);
-//        System.out.println("The best solution is frog : [Frog_id : " + Xf.getId_frog() + ", Objective Value :" + Xf.getTotal() + "]");
-//        Xf.getMap().forEach((key, value) -> System.out.println("Task " + key + " in the VM " + value));
+        System.out.println("The best solution is frog : [Frog_id : " + Xf.getId_frog() + ", Objective Value :" + Xf.getTotal() + "]");
+        Xf.getMap().forEach((key, value) -> System.out.println("Task " + key + " in the VM " + value));
     }
 
     private Frog generateFrog(Frog bestFrog, Frog worstFrog) { //map to fill the total value of new frog
-        int tab[] = new int[Cloud.getCloudlet().length];
+        int tab[] = new int[Main.getCloudlet().length];
         for (int i = 0; i < tab.length; i++) {
             do {
                 tab[i] = (int) (worstFrog.getTab()[i] + (Math.random() * Math.abs(bestFrog.getTab()[i] - worstFrog.getTab()[i])));
-            } while (!(0 <= tab[i] && tab[i] < Cloud.getVm().length));
+            } while (!(0 <= tab[i] && tab[i] < Main.getVm().length));
         }
         Frog newFrog = new Frog(worstFrog.getId_frog(), tab);
         return newFrog;
@@ -180,20 +180,14 @@ public class SFLA {
         }
         for (Map.Entry<Integer, Frog> entry : map.entrySet()) {
 
-            double total = ((entry.getValue().getMakespan()) * 1) + ((entry.getValue().getCost()) * 0);
+            double total = ((entry.getValue().getMakespan()) * 0.5) + ((entry.getValue().getCost()) * 0.5);
             entry.getValue().setTotal(total);
-
-            entry.getValue().setM(entry.getValue().getMakespan());
-            entry.getValue().setC(entry.getValue().getCost());
-
-            entry.getValue().setMs(entry.getValue().getMakespan() / sumMakespan);
-            entry.getValue().setCs(entry.getValue().getCost() / sumCost);
         }
     }
 
     public Frog start() {
         gen_frogs();
-        for (int i = 0; i < Cloud.getS(); i++) {
+        for (int i = 0; i < Main.getS(); i++) {
             sort_frogs();
             part_frogs();
             local_search();

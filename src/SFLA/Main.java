@@ -1,4 +1,4 @@
-package PFE;
+package SFLA;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -35,7 +35,7 @@ import org.cloudbus.cloudsim.provisioners.BwProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.RamProvisionerSimple;
 
-public class Cloud {
+public class Main {
 
     /**
      * The cloudlet list.
@@ -76,7 +76,7 @@ public class Cloud {
     /**
      * Creates main() to run this example
      */
-    public Cloud() {
+    public Main() {
 
         Log.printLine("Starting CloudSim...");
 
@@ -175,12 +175,7 @@ public class Cloud {
             CloudSim.stopSimulation();
 
             printCloudletList(newList);
-            
-            ms = opt_frog.getM();
-            cs = opt_frog.getC();
-            
-            System.out.println("Avec Minimization - Makespan: "+opt_frog.getMs()+", cout: "+opt_frog.getCs());
-            System.out.println("Sans Minimization - Makespan: "+opt_frog.getM()+", cout: "+opt_frog.getC());
+
             System.out.println("Objective Value: " + opt_frog.getTotal());
 
             Log.printLine("CloudSim finished!");
@@ -315,7 +310,7 @@ public class Cloud {
     }
     
     public static void main(String[] args) {
-        new Cloud();
+        new Main();
     }
 
     public static Cloudlet[] getCloudlet() {
@@ -323,7 +318,7 @@ public class Cloud {
     }
 
     public static void setCloudlet(Cloudlet[] cloudlet) {
-        Cloud.cloudlet = cloudlet;
+        Main.cloudlet = cloudlet;
     }
 
     public static Vm[] getVm() {
@@ -331,7 +326,7 @@ public class Cloud {
     }
 
     public static void setVm(Vm[] vm) {
-        Cloud.vm = vm;
+        Main.vm = vm;
     }
 
     public static int getF() {
@@ -339,7 +334,7 @@ public class Cloud {
     }
 
     public static void setF(int F) {
-        Cloud.F = F;
+        Main.F = F;
     }
 
     public static int getM() {
@@ -347,7 +342,7 @@ public class Cloud {
     }
 
     public static void setM(int M) {
-        Cloud.M = M;
+        Main.M = M;
     }
 
     public static int getN() {
@@ -355,7 +350,7 @@ public class Cloud {
     }
 
     public static void setN(int N) {
-        Cloud.N = N;
+        Main.N = N;
     }
 
     public static int getS() {
@@ -363,7 +358,7 @@ public class Cloud {
     }
 
     public static void setS(int S) {
-        Cloud.S = S;
+        Main.S = S;
     }
 
     public static double getMs() {
@@ -371,7 +366,7 @@ public class Cloud {
     }
 
     public static void setMs(double ms) {
-        Cloud.ms = ms;
+        Main.ms = ms;
     }
 
     public static double getCs() {
@@ -379,7 +374,7 @@ public class Cloud {
     }
 
     public static void setCs(double cs) {
-        Cloud.cs = cs;
+        Main.cs = cs;
     }
 
 }

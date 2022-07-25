@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package PFE;
+package SFLA;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,16 +39,9 @@ public class Frog {
     private double cost = 0;
 
     /**
-     * The energy value.
-     */
-    private double energy = 0;
-
-    /**
      * The objective value.
      */
     private double total = 0;
-    
-    private double m,c,ms,cs;
 
     public Frog(int id_frog) {
         this.id_frog = id_frog;
@@ -67,9 +60,9 @@ public class Frog {
     }
 
     private int[] generateTab() {
-        int[] Tab = new int[Cloud.getCloudlet().length];
+        int[] Tab = new int[Main.getCloudlet().length];
         for (int i = 0; i < Tab.length; i++) {
-            int r = (int) (0 + (Math.random() * (Cloud.getVm().length - 1)));
+            int r = (int) (0 + (Math.random() * (Main.getVm().length - 1)));
             Tab[i] = r;
         }
         return Tab;
@@ -77,8 +70,8 @@ public class Frog {
 
     public HashMap<Integer, Integer> fillMap() {
         HashMap<Integer, Integer> mop = new HashMap();
-        for (int i = 0; i < Cloud.getCloudlet().length; i++) {
-            mop.put(Cloud.getCloudlet()[i].getCloudletId(), Cloud.getVm()[tab[i]].getId());
+        for (int i = 0; i < Main.getCloudlet().length; i++) {
+            mop.put(Main.getCloudlet()[i].getCloudletId(), Main.getVm()[tab[i]].getId());
         }
         return mop;
     }
@@ -86,15 +79,15 @@ public class Frog {
     public double calculateMakespan() {
         double max = 0;
 
-        for (int i = 0; i < Cloud.getVm().length; i++) {
-            if (map.containsValue(Cloud.getVm()[i].getId())) {
+        for (int i = 0; i < Main.getVm().length; i++) {
+            if (map.containsValue(Main.getVm()[i].getId())) {
                 makespan = 0;
                 for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                    if (entry.getValue().equals(Cloud.getVm()[i].getId())) {
-                        makespan += Cloud.getCloudlet()[entry.getKey()].getCloudletLength();// Cloud.getCloudlet()[entry.getKey()] = Cloud.getCloudlet().getCloudletId()
+                    if (entry.getValue().equals(Main.getVm()[i].getId())) {
+                        makespan += Main.getCloudlet()[entry.getKey()].getCloudletLength();// Cloud.getCloudlet()[entry.getKey()] = Cloud.getCloudlet().getCloudletId()
                     }
                 }
-                makespan /= Cloud.getVm()[i].getMips();
+                makespan /= Main.getVm()[i].getMips();
                 if (max < makespan) {
                     max = makespan;
                 }
@@ -104,22 +97,10 @@ public class Frog {
     }
 
     public double calculateCost() {
-        for (int i = 0; i < Cloud.getCloudlet().length; i++) {
-            cost += Cloud.getCloudlet()[i].getCloudletLength() / Cloud.getVm()[tab[i]].getMips() * Cloud.calculatePrice(Cloud.getVm()[tab[i]]);
+        for (int i = 0; i < Main.getCloudlet().length; i++) {
+            cost += Main.getCloudlet()[i].getCloudletLength() / Main.getVm()[tab[i]].getMips() * Main.calculatePrice(Main.getVm()[tab[i]]);
         }
         return cost;
-    }
-
-    public double calculateEnergy() {
-        double cons = 1;
-        for (int i = 0; i < Cloud.getCloudlet().length; i++) {
-            double vi = 220;
-            double fi = 1;
-            double wri = Cloud.getCloudlet()[i].getCloudletLength() / Cloud.getVm()[tab[i]].getMips();
-            energy += vi * vi * fi * wri;
-        }
-        energy *= cons;
-        return energy;
     }
 
     public int getId_frog() {
@@ -169,46 +150,5 @@ public class Frog {
     public void setTotal(double total) {
         this.total = total;
     }
-
-    public double getEnergy() {
-        return energy;
-    }
-
-    public void setEnergy(double energy) {
-        this.energy = energy;
-    }
-
-    public double getM() {
-        return m;
-    }
-
-    public void setM(double m) {
-        this.m = m;
-    }
-
-    public double getC() {
-        return c;
-    }
-
-    public double getMs() {
-        return ms;
-    }
-
-    public void setMs(double ms) {
-        this.ms = ms;
-    }
-
-    public double getCs() {
-        return cs;
-    }
-
-    public void setCs(double cs) {
-        this.cs = cs;
-    }
-
-    public void setC(double c) {
-        this.c = c;
-    }
-
     
 }
