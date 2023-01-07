@@ -3,7 +3,6 @@
 Hey there, Welcome!
 
 This algorithm is implemented in Java and intended for educational and learning purposes.
-The best way to get the most out of this project is to carefully read and understand the concept of the algorithm in "SFLA_CONCEPT.pdf" file.
 
 Before diving into the code, it is important to understand how this algorithm operates. Essentially, this algorithm is designed to find a solution to a problem through the use of heuristics. It works by iteratively improving upon a solution, rather than finding the optimal solution outright.
 
