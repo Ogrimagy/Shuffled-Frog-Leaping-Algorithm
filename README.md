@@ -34,7 +34,7 @@ For a deeper understanding of the algorithm, refer to the **[SFLA_CONCEPT.pdf](.
 3. **Run the Main Class**: Navigate to the `SFLA` package and run the main class to execute the algorithm.
 
 bash
-git clone https://github.com/yourusername/StockStore.git
+git clone https://github.com/ogrimagy/Shuffled-Frog-Leaping-Algorithm.git
 
 ## 🔧 How SFLA Works
 
